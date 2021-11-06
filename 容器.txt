@@ -1,0 +1,43 @@
+
+    docker run -itd --name xxx -p 3306:3306 镜像名:镜像版本号 /bin/bash   
+    run通过镜像启动容器，-it交互方式进行，-d后台方式运行 -p暴露端口
+
+    docker start 容器ID  启动一个容器
+
+    docker stop  容器ID  关闭一个容器
+
+    docker run -d --name xxx -p 3306:3306 -v /xx/yy 镜像名  -v 数据挂载。
+    匿名挂载：指定容器内的路径，不指定主机路径。-v 容器路径
+    指定路径挂载：-v 主机路径:容器路径
+    通过 docker volumes ls 可以查看所有数据卷的情况
+    通过 docker inspect 容器ID  可以查看该容器的情况，比如有没有挂载有数据卷。
+
+    docker volume inspect 卷名 
+
+    创建一个与宿主机挂载的mysql的数据卷镜像
+    docker run -d -p 3306:3306 -v /xxx/yyy/ccc:/xxx/yyy/ccc mysql:5.7
+    通过这个镜像启动父容器
+    docker run -d --name my01 -p 3310:3306 -e MYSQL_ROOT_PASSWORD=123456 镜像ID
+    创建子容器继承父容器
+    docker run -d --name my02 -p 3320:3306 -e MYSQL_ROOT_PASSWORD=123456 --volumes-from my01 镜像ID
+
+     linux本地的IP作为docker的默认网关，linux的子网分配一个给docker0，
+     然后docker0的ip作为容器的默认网关，docker0的子网分配一个ip容器。
+
+    evth-pair技术
+
+    所有容器在默认的情况下，都使用docker0网络
+    
+    docker run -d -P --name tomcat03 --link tomcat02 tomcat  tomcat03绑定tomcat02
+
+    docker exec -it tomcat03 ping tomcat02  
+    这时候ping容器名字是可以ping得通的，因为在toncat03的本地/etc/hosts已经配置了tomcat02的所有信息了。
+    但是不可以反过来tomcat02 ping tomcat03，这就导致了用--lingk不灵活
+      
+    自定义网络
+    docker network create --drive bridge --subnet 192.168.0.0/16 --gateway 192.168.0.0 mynet
+     --drive bridge  网络桥接模式  --subnet 子网网段 --gateway 网关（路由）
+    网络连通
+    docker netword connet mynet tomcat04
+    将tomcat04容器连接到mynet网络上，原本tomcat04的网络在bridge上的，这样子tomcta04相当于有两个IP
+   

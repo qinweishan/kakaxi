@@ -1,0 +1,34 @@
+  
+
+
+
+
+   xxx |  grep  yyy   将结果通过| 传给 grep进行条件搜索
+
+   export 定义环境变量 
+
+   env  查出所有的环境变量
+   
+   unset 变量名 删除环境变量
+
+   find /xx/yy -name 'www'   查找/xx/yy 目录下  名字为www的文件
+
+   cp  -r  /yy/xx  /tt  将/yy目录下的/xx文件拷贝到  /tt目录下  -r代表递归
+
+   mv /xx/yy  /vv 将/xx 目录下的yy  移动到/vv目录下 
+   
+   rm -rf  /xx/yy   删除/xx目录下的yy文件  -r表示递归删除， -f表示强制删除不询问
+
+   chmod 777 xx  给xx文件最高授权 
+   
+   du -sh /xx  查看/xx目录的总大小
+
+   df -h       查看磁盘空间的使用情况
+ 
+   head -n 20 /xx  列出xx文件的前20行
+  
+   tail -n 20 /yy   列出yy文件的后20行
+
+   rmdir  -p /xx   只能删除空的目录 -p  连上一级的空目录一起删除
+
+   mkdir -p /xx/yy/vv/cc   创建递归目录  -p递归创建
